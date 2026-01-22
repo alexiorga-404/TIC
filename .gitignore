@@ -1,0 +1,8 @@
+node_modules/
+.env
+dist/
+.vscode/
+
+tasks.md 
+serviceAccountKey.json
+.DS_Store
