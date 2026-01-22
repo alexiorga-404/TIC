@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
-
+const { db } = require('./config/firebase');
+const productRoutes = require('./routes/productRoutes');
 
 dotenv.config();
 
@@ -13,7 +14,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
-const { db } = require('./config/firebase');
+app.use('/api/products', productRoutes);
 
 app.get('/', (req, res) => {
     res.status(200).send('Server is running!');
