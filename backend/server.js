@@ -13,7 +13,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
-
+const { db } = require('./config/firebase');
 
 app.get('/', (req, res) => {
     res.status(200).send('Server is running!');
