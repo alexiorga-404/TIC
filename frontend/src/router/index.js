@@ -35,7 +35,7 @@ router.beforeEach(async (to, from, next) => {
 
     if (authStore.user && (to.name === 'Login' || to.name === 'Register')) {
 		next('/')
-	}else if(!useAuthStore().user && (to.name === 'Cart' || to.path === '/cart')){
+	}else if(!authStore.user && (to.name === 'Cart' || to.path === '/cart')){
         next('/login')
     }
      else {
