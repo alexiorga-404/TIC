@@ -64,6 +64,7 @@ async function handleLogin() {
   try {
     const user = await authStore.login(email.value, password.value);
     console.log('rezultat login:', user);
+    
     if (user) {
       router.push('/');
     }

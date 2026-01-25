@@ -9,6 +9,11 @@ async function createOrder(req, res) {
 			return res.status(400).json({ error: 'Missing required fields' })
 		}
 
+		// Ownership check: user can only create orders for themselves
+		if (req.user.uid !== userId && !req.user.isAdmin) {
+			return res.status(403).json({ error: 'Forbidden: cannot create order for another user' })
+		}
+
 		const orderData = {
 			userId,
 			items,
@@ -38,6 +43,11 @@ async function getOrdersByUserId(req, res) {
 
 		if (!userId) {
 			return res.status(400).json({ error: 'userId is required' })
+		}
+
+		//ownership check 
+		if (req.user.uid !== userId && !req.user.isAdmin) {
+			return res.status(403).json({ error: 'Forbidden: cannot access another user\'s orders' })
 		}
 
 		const snapshot = await db
@@ -71,6 +81,12 @@ async function getOrderById(req, res) {
 		}
 
 		const order = { id: docSnap.id, ...docSnap.data() }
+
+		
+		if (req.user.uid !== order.userId && !req.user.isAdmin) {
+			return res.status(403).json({ error: 'Forbidden: cannot access another user\'s order' })
+		}
+
 		return res.status(200).json(order)
 	} catch (error) {
 		console.error('Error fetching order:', error)
@@ -97,6 +113,13 @@ async function updateOrderStatus(req, res) {
 
 		if (!docSnap.exists) {
 			return res.status(404).json({ error: 'Order not found' })
+		}
+
+		const order = { id: docSnap.id, ...docSnap.data() }
+
+		
+		if (req.user.uid !== order.userId && !req.user.isAdmin) {
+			return res.status(403).json({ error: 'Forbidden: cannot update another user\'s order' })
 		}
 
 		await docRef.update({
@@ -128,6 +151,13 @@ async function deleteOrder(req, res) {
 
 		if (!docSnap.exists) {
 			return res.status(404).json({ error: 'Order not found' })
+		}
+
+		const order = { id: docSnap.id, ...docSnap.data() }
+
+		
+		if (req.user.uid !== order.userId && !req.user.isAdmin) {
+			return res.status(403).json({ error: 'Forbidden: cannot delete another user\'s order' })
 		}
 
 		await docRef.delete()
