@@ -125,6 +125,12 @@ async function updateOrderStatus(req, res) {
 			return res.status(400).json({ error: 'status is required' })
 		}
 
+		
+		const allowedStatuses = ['cancelled', 'pending']
+		if (!allowedStatuses.includes(status)) {
+			return res.status(400).json({ error: 'Invalid status. Allowed values: cancelled, pending' })
+		}
+
 		const docRef = db.collection('orders').doc(orderId)
 		const docSnap = await docRef.get()
 
@@ -175,6 +181,11 @@ async function deleteOrder(req, res) {
 		
 		if (req.user.uid !== order.userId && !req.user.isAdmin) {
 			return res.status(403).json({ error: 'Forbidden: cannot delete another user\'s order' })
+		}
+
+		
+		if (order.status !== 'cancelled') {
+			return res.status(400).json({ error: 'Only cancelled orders can be deleted' })
 		}
 
 		await docRef.delete()

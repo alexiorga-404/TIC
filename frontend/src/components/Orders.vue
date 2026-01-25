@@ -84,12 +84,14 @@
             {{ actionLoading[order.id] ? 'Cancelling...' : 'Cancel Order' }}
           </button>
           <button
+            v-if="order.status === 'cancelled'"
             class="btn-delete"
             @click="deleteOrder(order.id)"
             :disabled="actionLoading[order.id]"
           >
             {{ actionLoading[order.id] ? 'Deleting...' : 'Delete' }}
           </button>
+          <p v-if="order.status === 'pending'" class="info-text">Cancel order first to delete it</p>
         </div>
       </div>
     </div>
@@ -405,7 +407,21 @@ onMounted(() => {
 
 .order-actions {
   display: flex;
+  flex-direction: column;
   gap: 0.5rem;
+}
+
+.order-actions > div {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.info-text {
+  font-size: 0.85rem;
+  color: #6b7280;
+  text-align: center;
+  margin: 0.25rem 0 0 0;
+  font-style: italic;
 }
 
 .btn-cancel,
