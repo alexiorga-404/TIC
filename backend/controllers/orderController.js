@@ -9,9 +9,26 @@ async function createOrder(req, res) {
 			return res.status(400).json({ error: 'Missing required fields' })
 		}
 
-		// Ownership check: user can only create orders for themselves
+		//ownership check 
 		if (req.user.uid !== userId && !req.user.isAdmin) {
 			return res.status(403).json({ error: 'Forbidden: cannot create order for another user' })
+		}
+
+		//  verify all productIds exist
+		const productIds = items.map(item => item.productId)
+		const productChecks = await Promise.all(
+			productIds.map(async (productId) => {
+				const snap = await db.collection('products').doc(productId).get()
+				return { productId, exists: snap.exists }
+			})
+		)
+		
+		const invalidProducts = productChecks.filter(p => !p.exists)
+		if (invalidProducts.length > 0) {
+			return res.status(400).json({ 
+				error: 'Invalid product(s) in order',
+				invalidProducts: invalidProducts.map(p => p.productId)
+			})
 		}
 
 		const orderData = {
@@ -45,7 +62,7 @@ async function getOrdersByUserId(req, res) {
 			return res.status(400).json({ error: 'userId is required' })
 		}
 
-		//ownership check 
+		
 		if (req.user.uid !== userId && !req.user.isAdmin) {
 			return res.status(403).json({ error: 'Forbidden: cannot access another user\'s orders' })
 		}
