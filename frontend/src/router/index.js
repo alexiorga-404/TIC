@@ -18,6 +18,16 @@ const routes = [
             name: 'Register',
             component: () => import('../components/Register.vue'),
         },
+        {
+            path: '/cart',
+            name: 'Cart',
+            component: () => import('../components/Cart.vue'),
+        },
+        {
+            path: '/orders',
+            name: 'Orders',
+            component: () => import('../components/Orders.vue'),
+        },
        
 ]
 
@@ -35,7 +45,7 @@ router.beforeEach(async (to, from, next) => {
 
     if (authStore.user && (to.name === 'Login' || to.name === 'Register')) {
 		next('/')
-	}else if(!authStore.user && (to.name === 'Cart' || to.path === '/cart')){
+	}else if(!authStore.user && (to.name === 'Cart' || to.path === '/cart' || to.name === 'Orders' || to.path === '/orders')){
         next('/login')
     }
      else {

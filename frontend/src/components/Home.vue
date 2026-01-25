@@ -18,6 +18,7 @@
         <h3>{{ product.name }}</h3>
         <p class="price">${{ product.price }}</p>
         <p class="category">{{ product.category.name }}</p>
+        <button class="add-btn" @click="add(product)">Add to Cart</button>
       </div>
     </div>
 
@@ -31,12 +32,18 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useProductStore } from '@/stores/productStore'
+import { useCartStore } from '@/stores/cartStore'
 
 const store = useProductStore()
+const cartStore = useCartStore()
 
 onMounted(() => {
   store.fetchProducts()
 })
+
+const add = (product) => {
+  cartStore.addToCart(product, 1)
+}
 </script>
 
 <style scoped>
@@ -75,6 +82,23 @@ onMounted(() => {
 
 .product-card:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-btn {
+  margin-top: 0.75rem;
+  width: 100%;
+  padding: 0.6rem;
+  background: #111827;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.add-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.08);
 }
 
 .product-card h3 {
