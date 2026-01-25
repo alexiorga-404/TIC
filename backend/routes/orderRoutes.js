@@ -6,9 +6,11 @@ const {
 	updateOrderStatus,
 	deleteOrder,
 } = require('../controllers/orderController')
+const { verifyAuth } = require('../middleware/auth')
 
 const router = express.Router()
 
+router.use(verifyAuth)
 
 router.post('/', createOrder)
 
