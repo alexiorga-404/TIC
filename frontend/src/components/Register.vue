@@ -48,9 +48,9 @@ const handleRegister = async () => {
 
 <style scoped>
 
-.register-container { max-width: 400px; margin: 2rem auto; padding: 1rem; border: 1px solid #ddd; border-radius: 8px; }
-form { display: flex; direction: column; gap: 1rem; }
-input { padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; }
-button { padding: 0.7rem; background: #28a745; color: white; border: none; cursor: pointer; }
+.register-container { max-width: 300px; margin: 2rem auto; padding: 1rem; border: 1px solid #ddd; border-radius: 8px; }
+form { display: flex; flex-direction: column; gap: 0.8rem; }
+input { padding: 0.4rem; font-size: 0.9rem; border: 1px solid #ccc; border-radius: 4px; }
+button { padding: 0.5rem; font-size: 0.95rem; background: #28a745; color: white; border: none; cursor: pointer; border-radius: 4px; }
 .error { color: red; font-size: 0.9rem; }
 </style>

@@ -9,12 +9,12 @@
       <nav class="top-links">
         <router-link to="/register" v-if="!authStore.user">Register</router-link>
         <router-link to="/login" v-if="!authStore.user">Login</router-link>
-        <router-link to="/cart" class="cart-chip">
+        <router-link to="/cart" v-if="authStore.user" class="cart-chip">
           Cart
           <span class="badge">{{ cartStore.totalItems }}</span>
         </router-link>
         <span v-if="authStore.user" class="user-block">
-          Hello, {{ authStore.user.email }}
+          Hello, {{ authStore.user.email.split('@')[0] }}!
           <button class="ghost" @click="handleLogout">Logout</button>
         </span>
         <button v-if="authStore.user" class="hamburger" @click="toggleSidebar" aria-label="Toggle menu">
