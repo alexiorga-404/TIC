@@ -40,19 +40,21 @@ async function createOrder(req, res) {
 			return res.status(400).json({ error: 'Missing shipping details' })
 		}
 
-		if(/[^a-zA-Z]/.test(clientName) || clientName.length < 10){
-
+		if(/[^a-zA-Z\s]/.test(clientName) || clientName.length < 5){
 			return res.status(400).json({ error: 'Invalid name in shipping details' })
 
 		}else if(/[^0-9]/.test(clientPhone) || clientPhone.length < 10){
 
 			return res.status(400).json({ error: 'Invalid phone in shipping details' })
 
-		}else if(/[^a-zA-Z0-9]/.test(clientAddress) || clientAddress.length < 10){
+		}else if(/[^a-zA-Z0-9\s]/.test(clientAddress) || clientAddress.length < 10){
 
 			return res.status(400).json({ error: 'Invalid address in shipping details' })
 			
 		}
+
+
+	
 
 		const orderData = {
 			userId,
