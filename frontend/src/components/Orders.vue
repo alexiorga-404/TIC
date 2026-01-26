@@ -103,6 +103,7 @@ import { ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import api from '@/api/axios'
 import { useAuthStore } from '@/stores/authStore'
+import { confirmDialog } from '@/utils/sweetalert'
 
 const authStore = useAuthStore()
 const router = useRouter()
@@ -151,7 +152,15 @@ const cancelOrder = async (orderId) => {
 }
 
 const deleteOrder = async (orderId) => {
-  if (!confirm('Are you sure you want to delete this order? This action cannot be undone.')) {
+  const confirmed = await confirmDialog({
+    title: 'Delete Order?',
+    text: 'This action cannot be undone.',
+    icon: 'warning',
+    confirmText: 'Yes, delete it',
+    cancelText: 'Cancel'
+  })
+  
+  if (!confirmed) {
     return
   }
 
