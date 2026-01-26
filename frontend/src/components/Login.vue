@@ -64,7 +64,7 @@ onMounted(() => {
 })
 
 async function handleLogin() {
-  console.log('login apasat', email.value, password.value);
+  
   try {
     const user = await authStore.login(email.value, password.value);
     console.log('rezultat login:', user);
