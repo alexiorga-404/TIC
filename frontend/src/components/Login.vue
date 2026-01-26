@@ -49,7 +49,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
 
@@ -58,6 +58,10 @@ const authStore = useAuthStore()
 
 const email = ref('')
 const password = ref('')
+
+onMounted(() => {
+  authStore.clearError()
+})
 
 async function handleLogin() {
   console.log('login apasat', email.value, password.value);

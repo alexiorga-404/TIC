@@ -7,6 +7,20 @@ import{
 } from 'firebase/auth'
 import {auth} from '../firebase'
 
+const getErrorMessage = (err) => {
+  const code = err.code
+  const errorMap = {
+    'auth/email-already-in-use': 'This email is already registered',
+    'auth/invalid-email': 'Invalid email address',
+    'auth/weak-password': 'Password is too weak (min 6 characters)',
+    'auth/user-not-found': 'No account found with this email',
+    'auth/wrong-password': 'Incorrect password',
+    'auth/too-many-requests': 'Too many login attempts, please try again later',
+    'auth/invalid-credential': 'Invalid password or email provided',
+  }
+  return errorMap[code] || err.message || 'An error occurred'
+}
+
 export const useAuthStore = defineStore('authStore', {
   state: () => ({
     user: null,
@@ -15,6 +29,10 @@ export const useAuthStore = defineStore('authStore', {
   }),
 
   actions: {
+    clearError() {
+      this.error = null
+    },
+
     async login(email, password) {
       this.loading = true
       this.error = null
@@ -23,7 +41,7 @@ export const useAuthStore = defineStore('authStore', {
         this.user = userCredential.user
         return userCredential.user
       } catch (err) {
-        this.error = err.message || 'Login failed'
+        this.error = getErrorMessage(err)
         console.error('Login error:', err)
         return null
       } finally {
@@ -39,7 +57,7 @@ export const useAuthStore = defineStore('authStore', {
         this.user = userCredential.user
         return userCredential.user
       } catch (err) {
-        this.error = err.message || 'Registration failed'
+        this.error = getErrorMessage(err)
         console.error('Registration error:', err)
         return null
       } finally {
@@ -54,7 +72,7 @@ export const useAuthStore = defineStore('authStore', {
         await signOut(auth)
         this.user = null
       } catch (err) {
-        this.error = err.message || 'Logout failed'
+        this.error = getErrorMessage(err)
         console.error('Logout error:', err)
       } finally {
         this.loading = false

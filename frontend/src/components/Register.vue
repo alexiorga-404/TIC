@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useRouter } from 'vue-router'
 
@@ -28,6 +28,10 @@ const error = ref('')
 
 const authStore = useAuthStore()
 const router = useRouter()
+
+onMounted(() => {
+  authStore.clearError()
+})
 
 const handleRegister = async () => {
   error.value = ''
