@@ -6,7 +6,7 @@ const { db } = require('./config/firebase');
 const productRoutes = require('./routes/productRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 
-dotenv.config();
+dotenv.config({path :'./.env'});
 
 
 const app = express();
