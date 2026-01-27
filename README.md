@@ -46,7 +46,10 @@ A modern full-stack e-commerce application built with Vue.js, Node.js, and Fireb
 │   │   │   ├── cartStore.js
 │   │   │   └── productStore.js
 │   │   ├── router/             # Route definitions
+│   │   │   ├── index.js
 │   │   ├── api/                # API configuration
+│   │   │   ├── axios.js
+│   │   ├── firebase.js
 │   │   └── main.js
 │   └── package.json
 │
