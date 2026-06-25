@@ -1,3 +1,5 @@
+Link: https://proiecttic-4d5ad.web.app/
+
 # AplicatieTIC - E-Commerce Platform
 
 A modern full-stack e-commerce application built with Vue.js, Node.js, and Firebase.
@@ -173,3 +175,5 @@ The application provides user-friendly error messages for:
 ## License
 
 This project is licensed under the MIT License.
+
+

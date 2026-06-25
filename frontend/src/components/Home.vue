@@ -31,9 +31,13 @@
 
 <script setup>
 import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useProductStore } from '@/stores/productStore'
+import { useAuthStore } from '@/stores/authStore'
 import { useCartStore } from '@/stores/cartStore'
 
+const router = useRouter()
+const authStore = useAuthStore()
 const store = useProductStore()
 const cartStore = useCartStore()
 
@@ -42,6 +46,11 @@ onMounted(() => {
 })
 
 const add = (product) => {
+  if (!authStore.user) {
+    router.push({ path: '/login', query: { redirect: '/cart' } })
+    return
+  }
+
   cartStore.addToCart(product, 1)
 }
 </script>

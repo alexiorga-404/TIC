@@ -50,10 +50,11 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
 
 const router = useRouter()
+const route = useRoute()
 const authStore = useAuthStore()
 
 const email = ref('')
@@ -64,16 +65,15 @@ onMounted(() => {
 })
 
 async function handleLogin() {
-  
   try {
-    const user = await authStore.login(email.value, password.value);
-    
-    
+    const user = await authStore.login(email.value, password.value)
+
     if (user) {
-      router.push('/');
+      const redirectTarget = typeof route.query.redirect === 'string' ? route.query.redirect : '/'
+      router.push(redirectTarget)
     }
   } catch (err) {
-    console.error('Eroare :', err);
+    console.error('Login error:', err)
   }
 }
 </script>
