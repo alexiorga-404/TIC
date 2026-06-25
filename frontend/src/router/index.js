@@ -5,28 +5,28 @@ const routes = [
         {
             path: '/',
             name: 'Home',
-            component: () => import('../components/Home.vue'),
+            component: () => import('@/components/Home.vue'),
         },
         {
             path: '/login',
             name: 'Login',
-            component: () => import('../components/Login.vue'),
+            component: () => import('@/components/Login.vue'),
 
         },
         {
             path: '/register',
             name: 'Register',
-            component: () => import('../components/Register.vue'),
+            component: () => import('@/components/Register.vue'),
         },
         {
             path: '/cart',
             name: 'Cart',
-            component: () => import('../components/Cart.vue'),
+            component: () => import('@/components/Cart.vue'),
         },
         {
             path: '/orders',
             name: 'Orders',
-            component: () => import('../components/Orders.vue'),
+            component: () => import('@/components/Orders.vue'),
         },
        
 ]

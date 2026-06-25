@@ -1,10 +1,10 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import './style.css'
+import '@/style.css'
 import 'sweetalert2/dist/sweetalert2.min.css'
-import App from './App.vue'
-import { useAuthStore } from './stores/authStore'
-import router from './router'
+import App from '@/App.vue'
+import { useAuthStore } from '@/stores/authStore'
+import router from '@/router'
 
 const app = createApp(App)
 const pinia = createPinia()

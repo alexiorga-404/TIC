@@ -44,8 +44,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useAuthStore } from './stores/authStore'
-import { useCartStore } from './stores/cartStore'
+import { useAuthStore } from '@/stores/authStore'
+import { useCartStore } from '@/stores/cartStore'
 import { useRouter } from 'vue-router'
 
 const authStore = useAuthStore()
