@@ -75,6 +75,7 @@ const handleLogout = async () => {
   flex-direction: column;
   background: #f5f6fa;
   color: #111827;
+  overflow-x: hidden;
 }
 
 .topbar {
@@ -86,6 +87,7 @@ const handleLogout = async () => {
   color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   column-gap: 1.25rem;
+  width: 100%;
 }
 
 .brand a {

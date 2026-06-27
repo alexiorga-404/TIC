@@ -216,6 +216,7 @@ const placeOrder = async () => {
 	border-radius: 16px;
 	padding: 1.5rem;
 	box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+	min-width: 0;
 }
 
 .section-header {
@@ -274,7 +275,8 @@ h2 {
 .table-wrapper {
 	border: 1px solid #e5e7eb;
 	border-radius: 12px;
-	overflow: hidden;
+	overflow-x: auto;
+	overflow-y: hidden;
 }
 
 .cart-table {
